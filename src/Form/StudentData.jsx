@@ -1,9 +1,15 @@
-import React, {useEffect} from 'react'
-const StudentData = ({student}) => {
-    
+import React, { useEffect } from 'react';
+import './StudentData.css'; 
+
+const StudentData = ({ student }) => {
+  useEffect(() => {
+  }, [student]);
+
   return (
-   <>
-   </>
-  )
-}
-export default StudentData
+    <>
+      
+    </>
+  );
+};
+
+export default StudentData;
