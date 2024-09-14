@@ -55,82 +55,122 @@ const Form = () => {
       setPopupVisible(true);
       return;
     }
-     setStudents([
-       {
-         name: "",
-         age: "",
-         lname: "",
-         lnameError: "",
-         ageError: "",
-         nameError: "",
+    setStudents([
+      {
+        name: "",
+        age: "",
+        lname: "",
+        lnameError: "",
+        ageError: "",
+        nameError: "",
       },
-     ]);
+    ]);
     setTimeout(() => {
       setErrorMessage("");
       setPopupSuccessMessage("Thanks for registration.");
       setPopupVisible(true);
     }, 2000);
   };
-  const addStudent  = ()=>{
-    const data  = [...students]
-    setStudents([data, ...students]);
-  }
+  const addStudent = () => {
+    const data = [...students];
+    setStudents([...data, students]);
+  };
+  const deleteStudent = (index) => {
+    const data = [...students];
+    data.splice(index, 1);
+    setStudents(data);
+  };
   return (
     <>
-    <form className="form-container">
-  <h2>Student Registration</h2>
-  {students.map((student, index) => (
-    <div key={index} className="form-row">
-      <div className="form-group">
-        <label htmlFor={`name-${index}`}>First Name</label>
-        <input
-          id={`name-${index}`}
-          type="text"
-          name="name"
-          value={student.name}
-          placeholder="Enter first name"
-          onChange={(e) => handleChange(e, index)}
-          className={`form-input ${student.nameError ? "input-error" : ""}`}
-        />
-        {student.nameError && <p className="error-text">{student.nameError}</p>}
-      </div>
-      <div className="form-group">
-        <label htmlFor={`lname-${index}`}>Last Name</label>
-        <input
-          id={`lname-${index}`}
-          type="text"
-          name="lname"
-          value={student.lname}
-          placeholder="Enter last name"
-          onChange={(e) => handleChange(e, index)}
-          className={`form-input ${student.lnameError ? "input-error" : ""}`}
-        />
-        {student.lnameError && <p className="error-text">{student.lnameError}</p>}
-      </div>
-      <div className="form-group">
-        <label htmlFor={`age-${index}`}>Age</label>
-        <input
-          id={`age-${index}`}
-          type="text"
-          name="age"
-          value={student.age}
-          placeholder="Enter age"
-          onChange={(e) => handleChange(e, index)}
-          className={`form-input ${student.ageError ? "input-error" : ""}`}
-        />
-        {student.ageError && <p className="error-text">{student.ageError}</p>}
-      </div>
-      <button className="add-btn" type="button" onClick={() => addStudent(index)}>
-        Add
-      </button>
-    </div>
-  ))}
-  <div className="submit-btn-container">
-    <button type="button" onClick={addStudentForm} className="submit-btn">
-      Submit
-    </button>
-  </div>
-</form>
+      <form className="form-container">
+        <h2>Student Registration</h2>
+        {students.map((student, index) => (
+          <div key={index} className="form-row">
+            <div className="form-group">
+              <label htmlFor={`name-${index}`}>First Name</label>
+              <input
+                id={`name-${index}`}
+                type="text"
+                name="name"
+                value={student.name}
+                placeholder="Enter first name"
+                onChange={(e) => handleChange(e, index)}
+                className={`form-input ${
+                  student.nameError ? "input-error" : ""
+                }`}
+              />
+              {student.nameError && (
+                <p className="error-text">{student.nameError}</p>
+              )}
+            </div>
+            <div className="form-group">
+              <label htmlFor={`lname-${index}`}>Last Name</label>
+              <input
+                id={`lname-${index}`}
+                type="text"
+                name="lname"
+                value={student.lname}
+                placeholder="Enter last name"
+                onChange={(e) => handleChange(e, index)}
+                className={`form-input ${
+                  student.lnameError ? "input-error" : ""
+                }`}
+              />
+              {student.lnameError && (
+                <p className="error-text">{student.lnameError}</p>
+              )}
+            </div>
+            <div className="form-group">
+              <label htmlFor={`age-${index}`}>Age</label>
+              <input
+                id={`age-${index}`}
+                type="text"
+                name="age"
+                value={student.age}
+                placeholder="Enter age"
+                onChange={(e) => handleChange(e, index)}
+                className={`form-input ${
+                  student.ageError ? "input-error" : ""
+                }`}
+              />
+              {student.ageError && (
+                <p className="error-text">{student.ageError}</p>
+              )}
+            </div>
+            <button
+              className="add-btn"
+              type="button"
+              onClick={() => addStudent(index)}
+            >
+              +
+            </button>
+
+            {index < 1 ? (
+              <button
+                disabled
+                className="add-btn"
+                type="button"
+                onClick={() => deleteStudent(index)}
+              >
+                -
+              </button>
+            ) : (
+              <button
+                className="add-btn"
+                type="button"
+                onClick={() => deleteStudent(index)}
+              >
+                -
+              </button>
+            )}
+          </div>
+        ))}
+        <div className="submit-btn-container">
+          <button type="button" onClick={addStudentForm} className="submit-btn">
+            Submit
+          </button>
+        </div>
+      </form>
 
       {popupVisible && (
         <Popup
